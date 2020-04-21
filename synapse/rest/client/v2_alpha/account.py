@@ -385,6 +385,13 @@ class EmailThreepidRequestTokenRestServlet(RestServlet):
         )
 
         if existing_user_id is not None:
+            if self.config.request_token_inhibit_errors:
+                # Make the client think the operation succeeded but don't actually send
+                # anything. This is a compromise between sending an email, which could
+                # be a spam vector, and letting the client know which email address is
+                # bound to an account and which one isn't.
+                return 200, {"sid": random_string(16)}
+
             raise SynapseError(400, "Email is already in use", Codes.THREEPID_IN_USE)
 
         if self.config.threepid_behaviour_email == ThreepidBehaviour.REMOTE:
