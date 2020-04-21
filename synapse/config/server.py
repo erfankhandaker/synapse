@@ -507,8 +507,8 @@ class ServerConfig(Config):
 
         self.enable_ephemeral_messages = config.get("enable_ephemeral_messages", False)
 
-        self.request_token_inhibit_errors = config.get(
-            "request_token_inhibit_errors", False,
+        self.request_token_inhibit_3pid_errors = config.get(
+            "request_token_inhibit_3pid_errors", False,
         )
 
     def has_tls_listener(self) -> bool:
@@ -972,12 +972,11 @@ class ServerConfig(Config):
           #    longest_max_lifetime: 1y
           #    interval: 1d
 
-        # Inhibits errors on /requestToken endpoints. This means that, instead of
-        # responding with an error if the provided email address is, or isn't, already
-        # associated with a user on the server (depending on the endpoint), it will
-        # respond with a 200 status code and a fake session ID ('sid').
+        # Inhibits errors related to the existence or lack thereof (depending on the
+        # endpoint) on the /requestToken endpoints. Instead, the homeserver will respond
+        # with a 200 status code and a fake session ID ('sid').
         # This prevents leaking email addresses associated with this homeserver.
-        #request_token_inhibit_errors: true
+        #request_token_inhibit_3pid_errors: true
         """
             % locals()
         )

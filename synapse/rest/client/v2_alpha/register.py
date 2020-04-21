@@ -135,7 +135,7 @@ class EmailRegisterRequestTokenRestServlet(RestServlet):
         )
 
         if existing_user_id is not None:
-            if self.hs.config.request_token_inhibit_errors:
+            if self.hs.config.request_token_inhibit_3pid_errors:
                 # Make the client think the operation succeeded but don't actually send
                 # anything. This is a compromise between sending an email, which could
                 # be a spam vector, and letting the client know which email address is
@@ -209,7 +209,7 @@ class MsisdnRegisterRequestTokenRestServlet(RestServlet):
         )
 
         if existing_user_id is not None:
-            if self.hs.config.request_token_inhibit_errors:
+            if self.hs.config.request_token_inhibit_3pid_errors:
                 # Make the client think the operation succeeded but don't actually send
                 # anything. This is a compromise between sending an email, which could
                 # be a spam vector, and letting the client know which email address is

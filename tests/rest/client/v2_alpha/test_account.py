@@ -180,7 +180,7 @@ class PasswordResetTestCase(unittest.HomeserverTestCase):
 
     @unittest.override_config(
         {
-            "request_token_inhibit_errors": True,
+            "request_token_inhibit_3pid_errors": True,
         }
     )
     def test_password_reset_bad_email_inhibit_error(self):

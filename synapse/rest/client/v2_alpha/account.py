@@ -100,7 +100,7 @@ class EmailPasswordRequestTokenRestServlet(RestServlet):
         )
 
         if existing_user_id is None:
-            if self.config.request_token_inhibit_errors:
+            if self.config.request_token_inhibit_3pid_errors:
                 # Make the client think the operation succeeded but don't actually send
                 # anything. This is a compromise between sending an email, which could
                 # be a spam vector, and letting the client know which email address is
@@ -385,7 +385,7 @@ class EmailThreepidRequestTokenRestServlet(RestServlet):
         )
 
         if existing_user_id is not None:
-            if self.config.request_token_inhibit_errors:
+            if self.config.request_token_inhibit_3pid_errors:
                 # Make the client think the operation succeeded but don't actually send
                 # anything. This is a compromise between sending an email, which could
                 # be a spam vector, and letting the client know which email address is
@@ -455,7 +455,7 @@ class MsisdnThreepidRequestTokenRestServlet(RestServlet):
         existing_user_id = await self.store.get_user_id_by_threepid("msisdn", msisdn)
 
         if existing_user_id is not None:
-            if self.hs.config.request_token_inhibit_errors:
+            if self.hs.config.request_token_inhibit_3pid_errors:
                 # Make the client think the operation succeeded but don't actually send
                 # anything. This is a compromise between sending an email, which could
                 # be a spam vector, and letting the client know which email address is

@@ -414,7 +414,7 @@ retention:
 # associated with a user on the server (depending on the endpoint), it will
 # respond with a 200 status code and a fake session ID ('sid').
 # This prevents leaking email addresses associated with this homeserver.
-#request_token_inhibit_errors: true
+#request_token_inhibit_3pid_errors: true
 
 
 ## TLS ##
