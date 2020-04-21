@@ -275,7 +275,10 @@ class RegisterRestServletTestCase(unittest.HomeserverTestCase):
             },
         }
     )
-    def test_request_token_existing_email(self):
+    def test_request_token_existing_email_inhibit_error(self):
+        """Test that requesting a token via this endpoint doesn't leak existing
+        associations if configured that way.
+        """
         user_id = self.register_user("kermit", "monkey")
         self.login("kermit", "monkey")
 

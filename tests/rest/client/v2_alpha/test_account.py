@@ -183,9 +183,10 @@ class PasswordResetTestCase(unittest.HomeserverTestCase):
             "request_token_inhibit_errors": True,
         }
     )
-    def test_password_reset_bad_email(self):
+    def test_password_reset_bad_email_inhibit_error(self):
         """Test that triggering a password reset with an email address that isn't bound
-        to an account doesn't leak the lack of binding for that address.
+        to an account doesn't leak the lack of binding for that address if configured
+        that way.
         """
         self.register_user("kermit", "monkey")
         self.login("kermit", "monkey")
