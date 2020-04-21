@@ -179,9 +179,7 @@ class PasswordResetTestCase(unittest.HomeserverTestCase):
         self.attempt_wrong_password_login("kermit", new_password)
 
     @unittest.override_config(
-        {
-            "request_token_inhibit_3pid_errors": True,
-        }
+        {"request_token_inhibit_3pid_errors": True}
     )
     def test_password_reset_bad_email_inhibit_error(self):
         """Test that triggering a password reset with an email address that isn't bound
