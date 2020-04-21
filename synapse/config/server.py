@@ -975,7 +975,9 @@ class ServerConfig(Config):
         # Inhibits errors related to the existence or lack thereof (depending on the
         # endpoint) on the /requestToken endpoints. Instead, the homeserver will respond
         # with a 200 status code and a fake session ID ('sid').
-        # This prevents leaking email addresses associated with this homeserver.
+        # This prevents leaking email addresses associated with this homeserver, but can
+        # provide a less-than-ideal UX since it makes clients think an email has been
+        # sent even if it wasn't.
         #request_token_inhibit_3pid_errors: true
         """
             % locals()
