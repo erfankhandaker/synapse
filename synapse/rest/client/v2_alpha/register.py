@@ -135,12 +135,14 @@ class EmailRegisterRequestTokenRestServlet(RestServlet):
         )
 
         if existing_user_id is not None:
-            # If this 3PID is bound to an existing user, we make the client think the
-            # operation succeeded but don't actually send anything. This is a
-            # compromise between sending an email, which could be a spam vector,
-            # and letting the client know which email address is bound to an account
-            # and which one isn't.
-            return 200, {"sid": random_string(16)}
+            if self.hs.config.request_token_inhibit_errors:
+                # Make the client think the operation succeeded but don't actually send
+                # anything. This is a compromise between sending an email, which could
+                # be a spam vector, and letting the client know which email address is
+                # bound to an account and which one isn't.
+                return 200, {"sid": random_string(16)}
+
+            raise SynapseError(400, "Email is already in use", Codes.THREEPID_IN_USE)
 
         if self.config.threepid_behaviour_email == ThreepidBehaviour.REMOTE:
             assert self.hs.config.account_threepid_delegate_email

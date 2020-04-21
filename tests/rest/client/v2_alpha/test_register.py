@@ -266,6 +266,7 @@ class RegisterRestServletTestCase(unittest.HomeserverTestCase):
 
     @unittest.override_config(
         {
+            "request_token_inhibit_errors": True,
             "public_baseurl": "https://test_server",
             "email": {
                 "smtp_host": "mail_server",

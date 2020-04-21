@@ -178,12 +178,17 @@ class PasswordResetTestCase(unittest.HomeserverTestCase):
         # Assert we can't log in with the new password
         self.attempt_wrong_password_login("kermit", new_password)
 
+    @unittest.override_config(
+        {
+            "request_token_inhibit_errors": True,
+        }
+    )
     def test_password_reset_bad_email(self):
         """Test that triggering a password reset with an email address that isn't bound
         to an account doesn't leak the lack of binding for that address.
         """
-        old_password = "monkey"
-        self.login("kermit", old_password)
+        self.register_user("kermit", "monkey")
+        self.login("kermit", "monkey")
 
         email = "test@example.com"
 
